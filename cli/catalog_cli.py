@@ -1,5 +1,4 @@
-from ..services import book_service
-
+from services import book_service
 
 def browse_catalog() -> None:
     books = book_service.get_all_books()

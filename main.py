@@ -1,11 +1,11 @@
 from db.seed import initialize_database
 from db.connection import close_connection
-#from cli.app import run
+from cli.app import run
 
 def main():
     try:
         initialize_database()
-        #run()
+        run()
     except KeyboardInterrupt:
         print("\n\n  Applicazione interrotta. A presto!")
     finally:
