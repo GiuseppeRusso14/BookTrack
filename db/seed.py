@@ -1,11 +1,10 @@
-from .connection import get_connection
+from db.connection import get_connection
 
 def initialize_database() -> None:
     conn = get_connection()
     _create_tables(conn)
     _seed_books(conn)
     conn.commit()
-
 
 def _create_tables(conn) -> None:
     conn.executescript(

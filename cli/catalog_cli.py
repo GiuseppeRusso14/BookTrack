@@ -12,7 +12,6 @@ def browse_catalog() -> None:
         print(f"  {book}")
     print(f"\n  Totale: {len(books)} titoli")
 
-
 def search_books_menu() -> None:
     query = input("\nCerca per titolo, autore o genere: ").strip()
     if not query:
