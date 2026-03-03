@@ -3,7 +3,7 @@ import sqlite3
 from typing import Optional
 
 DB_PATH = os.path.join(
-    os.path.dirname(os.path.abspath(__file__)), "..", "..", "bookshelf.db"
+    os.path.dirname(os.path.abspath(__file__)), "..", "bookshelf.db"
 )
 
 _connection: Optional[sqlite3.Connection] = None
