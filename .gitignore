@@ -1,0 +1,44 @@
+# Cache dei file compilati
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environment
+venv/
+env/
+ENV/
+.venv/
+
+# File di database locali (SQLite)
+*.db
+*.sqlite3
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# ===== Sistema operativo =====
+.DS_Store
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# ===== Logs e output =====
+*.log
+*.out
+*.err
+
+# ===== Bytecode distribuito / Packaging =====
+*.egg
+*.egg-info/
+dist/
+build/
+pip-wheel-metadata/
+
+# ===== Files temporanei =====
+*.tmp
+*.bak
+*.old
+*.orig

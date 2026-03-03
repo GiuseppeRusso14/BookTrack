@@ -8,7 +8,6 @@ DB_PATH = os.path.join(
 
 _connection: Optional[sqlite3.Connection] = None
 
-
 def get_connection() -> sqlite3.Connection:
     global _connection
     if _connection is None:
