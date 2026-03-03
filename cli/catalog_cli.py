@@ -14,11 +14,11 @@ def browse_catalog() -> None:
 
 
 def search_books_menu() -> None:
-    query = input("\nCerca per titolo, autore o genere: ")
+    query = input("\nCerca per titolo, autore o genere: ").strip()
     if not query:
         print("Ricerca annullata.")
         return
-    results = book_service.searchbook(query)
+    results = book_service.search_books(query)
     if not results:
         print(f"Nessun risultato per '{query}'.")
         return
