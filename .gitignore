@@ -1,0 +1,11 @@
+# Coverage
+.coverage
+htmlcov/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+
+# DB locale
+*.db
