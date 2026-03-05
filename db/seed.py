@@ -4,6 +4,7 @@ from db.connection import get_connection
 def initialize_database() -> None:
     conn = get_connection()
     _create_tables(conn)
+    _seed_users(conn)
     conn.commit()
 
 
