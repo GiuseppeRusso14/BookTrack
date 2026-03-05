@@ -1,6 +1,6 @@
-from db import initialize_database, close_connection
-from cli import run
-
+from db.seed import initialize_database
+from db.connection import close_connection
+from cli.app import run
 
 def main():
     try:
@@ -10,7 +10,6 @@ def main():
         print("\n\n  Applicazione interrotta. A presto!")
     finally:
         close_connection()
-
 
 if __name__ == "__main__":
     main()
