@@ -18,8 +18,6 @@ ENV/
 # IDE
 .vscode/
 .idea/
-*.swp
-*.swo
 
 # ===== Sistema operativo =====
 .DS_Store
