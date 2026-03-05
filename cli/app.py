@@ -1,3 +1,5 @@
+from .catalog_cli import browse_catalog, search_books_menu
+
 def _main_menu():
     print("\n" + "-" * 40)
     print(f"  Menu principale")
@@ -12,11 +14,9 @@ def _main_menu():
     choice = input("  Scelta: ").strip()
 
     if choice == "1":
-        # sfoglia catalogo
-        pass
+        browse_catalog()
     elif choice == "2":
-        # cerca libri 
-        pass
+        search_books_menu()
     elif choice == "3":
         # prenota un libro
         pass
@@ -29,3 +29,8 @@ def _main_menu():
     else:
         print("  Scelta non valida.")
     return True
+
+def run():
+    running = True
+    while running:
+        running = _main_menu()
