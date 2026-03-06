@@ -1,23 +1,70 @@
 # 📚 BookTrack
 
-**Sistema di gestione e prenotazione libri con controllo delle disponibilità.**
+**BookTrack** è un'applicazione **a riga di comando (CLI)** sviluppata in Python che permette agli utenti di esplorare un catalogo di libri, controllare quante copie sono disponibili, prenotare libri e cancellare prenotazioni attive. <br>Il database SQLite viene **generato all’avvio** dell’applicazione e i record iniziali sono **precaricati dal file `seed.py` nella cartella `db`**, garantendo la coerenza dei dati tra un utilizzo e l’altro. L’applicazione ha un’**architettura modulare**, pensata per facilitare una futura estensione come **web app**. I principali servizi sono testati con **pytest** ✅ e ogni modifica viene verificata automaticamente tramite la **pipeline CI/CD**, assicurando che le funzionalità restino corrette.
 
-BookShelf è un'applicazione CLI sviluppata in Python che consente agli utenti di consultare un catalogo di libri, verificarne la disponibilità e procedere con la prenotazione. Al momento della prenotazione, il numero di copie disponibili viene automaticamente decrementato per garantire la coerenza dei dati.
+L’applicazione ha un’**architettura modulare**, pensata per facilitare una futura estensione come **web app** 🌐
 
-## Caratteristiche principali
+## Funzionalità principali
+- Catalogo di circa **20 titoli precaricati** con titolo, autore e genere.  
+- **Verifica disponibilità** delle copie prima di prenotare.  
+- **Prenotazione libri** con decremento automatico delle copie disponibili.  
+- **Cancellazione prenotazioni** attive, con ripristino delle copie.  
+- **Visualizzazione prenotazioni** dell’utente con dettagli su libro, data e stato.  
+- **Autenticazione utenti** tramite insieme di utenti predefiniti.  
 
-- Catalogo iniziale composto da circa una ventina di titoli precaricati
-- Prenotazione libri con decremento automatico delle copie disponibili
-- Autenticazione tramite un insieme di utenti predefiniti, con corretta progettazione delle entità e delle relazioni tra di esse
-- Persistenza dei dati tra un'esecuzione e l'altra tramite database locale SQLite
-- Architettura modulare con separazione tra logica applicativa e gestione dell'interfaccia, predisposta per una futura estensione come web app
+## Architettura e gestione dati
+- **Persistenza dei dati** tramite database locale SQLite.  
+- **Architettura modulare**: separazione tra logica applicativa e interfaccia.  
+- **Test automatizzati** delle funzioni principali con pytest, per garantire correttezza e coerenza dei dati.  
+
+
+## Struttura del progetto
+
+```
+booktrack/
+├── db/              # Inizializzazione e connessione al database
+├── models/          # Definizione delle entità (Book, User, Reservation)
+├── services/        # Logica applicativa
+├── cli/             # Interfaccia a riga di comando
+└── tests/           # Test unitari sviluppati usando pytest.
+└── main.py          # Entry point dell'applicazione
+```
+
+---
+
+## Strumenti e framework
+
+- **Python 3.14**
+- **SQLite** per il database
+- **pytest** per i test
+- **mocker** per mocking delle connessioni e delle query
+- **Pipeline CI/CD** (GitHub Actions) per eseguire automaticamente lint e test ad ogni PR, con **coverage minimo del 75%**
+
+---
+
+## Avvio rapido
+
+```bash
+# Clona il repository
+git clone https://github.com/<username>/bookshelf.git
+cd bookshelf
+
+# Esegui l'applicazione
+python3 main.py
+```
 
 ## Nota sull'autenticazione
 
 L'implementazione di un sistema completo di registrazione con gestione sicura delle password richiederebbe componenti che esulano dagli obiettivi attuali del project work. Per questo motivo si è scelto di utilizzare un insieme di utenti predefiniti, garantendo comunque una corretta progettazione delle entità e delle relazioni tra di esse.
 
-## Stack tecnologico
+## Credenziali di accesso
 
-- **Linguaggio:** Python
-- **Database:** SQLite
-- **Interfaccia:** CLI (Command Line Interface)
+L'applicazione include cinque utenti predefiniti:
+
+| Username | Password | Nome completo |
+|---|---|---|
+| `mario_rossi` | `password1` | Mario Rossi |
+| `laura_bianchi` | `password2` | Laura Bianchi |
+| `luca_verdi` | `password3` | Luca Verdi |
+| `anna_neri` | `password4` | Anna Neri |
+| `paolo_gialli` | `password5` | Paolo Gialli |
