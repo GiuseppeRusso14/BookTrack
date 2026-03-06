@@ -1,0 +1,33 @@
+import pytest
+from services.reservation_service import get_connection
+import services.reservation_service as reservation_service
+
+# verifico che la funzione reserve_book gestisca correttamente due casi: il libro è inesistente e prenotazione riuscita
+@pytest.mark.parametrize(
+    "available_copies, rowcount, expected_success, expected_msg",
+    [
+        (None, 0, False, "Libro non trovato."),
+        (2,    1, True,  "Prenotazione confermata"),
+    ],
+)
+
+def test_reserve_book(mocker, available_copies, rowcount, expected_success, expected_msg):
+    fake_conn = mocker.MagicMock()
+    mocker.patch("services.reservation_service.get_connection") \
+          .return_value.__enter__.return_value = fake_conn
+
+    select_result = mocker.MagicMock()
+    select_result.fetchone.return_value = (
+        None if available_copies is None
+        else {"available_copies": available_copies, "title": "Titolo"}
+    )
+
+    update_cursor = mocker.MagicMock()
+    update_cursor.rowcount = rowcount
+
+    fake_conn.execute.side_effect = [select_result, update_cursor, mocker.MagicMock()]
+
+    success, message = reservation_service.reserve_book(user_id=1, book_id=42)
+
+    assert success == expected_success
+    assert expected_msg in message
