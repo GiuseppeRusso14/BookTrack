@@ -54,6 +54,8 @@ def _seed_users(conn) -> None:
     conn.executemany(
         "INSERT INTO users (username, password, full_name) VALUES (?, ?, ?)",
         users,
+    )
+
 def _seed_books(conn) -> None:
     count = conn.execute("SELECT COUNT(*) FROM books").fetchone()[0]
     if count > 0:
@@ -64,7 +66,14 @@ def _seed_books(conn) -> None:
         ("Il piccolo principe", "Antoine de Saint-Exupéry", "Narrativa", 1943, 5, 5),
         ("Orgoglio e pregiudizio", "Jane Austen", "Romanzo", 1813, 3, 3),
         ("Il Signore degli Anelli", "J.R.R. Tolkien", "Fantasy", 1954, 4, 4),
-        ("Cent'anni di solitudine", "Gabriel García Márquez", "Realismo magico", 1967, 3, 3),
+        (
+            "Cent'anni di solitudine",
+            "Gabriel García Márquez",
+            "Realismo magico",
+            1967,
+            3,
+            3,
+        ),
         ("Il processo", "Franz Kafka", "Narrativa", 1925, 2, 2),
         ("Don Chisciotte", "Miguel de Cervantes", "Romanzo", 1605, 2, 2),
         ("La divina commedia", "Dante Alighieri", "Poesia epica", 1320, 4, 4),
