@@ -1,5 +1,5 @@
-from cli.auth_cli import login_screen
-from cli.catalog_cli import browse_catalog, search_books_menu
+from .auth_cli import login_screen
+from .catalog_cli import browse_catalog, search_books_menu
 from models.user import User
 
 def _main_menu(user: User) -> bool:
