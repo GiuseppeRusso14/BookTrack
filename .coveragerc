@@ -1,0 +1,6 @@
+[run]
+source = cli, db, models, services
+
+[report]
+omit =
+    tests/*

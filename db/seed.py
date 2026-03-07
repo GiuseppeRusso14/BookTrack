@@ -3,6 +3,7 @@ from db.connection import get_connection
 def initialize_database() -> None:
     conn = get_connection()
     _create_tables(conn)
+    _seed_users(conn)
     _seed_books(conn)
     conn.commit()
 
@@ -38,6 +39,21 @@ def _create_tables(conn) -> None:
     """
     )
 
+
+def _seed_users(conn) -> None:
+    count = conn.execute("SELECT COUNT(*) FROM users").fetchone()[0]
+    if count > 0:
+        return
+    users = [
+        ("mario_rossi", "password1", "Mario Rossi"),
+        ("laura_bianchi", "password2", "Laura Bianchi"),
+        ("luca_verdi", "password3", "Luca Verdi"),
+        ("anna_neri", "password4", "Anna Neri"),
+        ("paolo_gialli", "password5", "Paolo Gialli"),
+    ]
+    conn.executemany(
+        "INSERT INTO users (username, password, full_name) VALUES (?, ?, ?)",
+        users,
 def _seed_books(conn) -> None:
     count = conn.execute("SELECT COUNT(*) FROM books").fetchone()[0]
     if count > 0:
