@@ -1,84 +1,96 @@
 # 📚 BookTrack
+![Lint](https://github.com/GiuseppeRusso14/BookTrack/actions/workflows/lint.yml/badge.svg)
+![Test](https://github.com/GiuseppeRusso14/BookTrack/actions/workflows/test.yml/badge.svg)
+[![codecov](https://codecov.io/gh/GiuseppeRusso14/BookTrack/branch/main/graph/badge.svg)](https://codecov.io/gh/GiuseppeRusso14/BookTrack)
 
-**BookTrack** è un'applicazione **a riga di comando (CLI)** sviluppata in Python che permette agli utenti di esplorare un catalogo di libri, controllare quante copie sono disponibili, prenotare libri e cancellare prenotazioni attive.
+🇮🇹 [Leggi in italiano](README.it.md) | 🇬🇧 Read in English
 
-Il database SQLite viene **generato all'avvio** dell'applicazione e i record iniziali sono **precaricati dal file `seed.py` nella cartella `db`**, garantendo la coerenza dei dati tra un utilizzo e l'altro. L'applicazione ha un'**architettura modulare** 🌐, pensata per facilitare una futura estensione come **web app**. I principali servizi sono testati con **pytest** ✅ e ogni modifica viene verificata automaticamente tramite la **pipeline CI/CD**, assicurando che le funzionalità restino corrette.
+**BookTrack** is a **command-line (CLI) application** built in Python that allows users to browse a book catalog, check copy availability, reserve books, and cancel active reservations.
 
-
-## Funzionalità principali
-
-- Catalogo di circa **20 titoli precaricati** con titolo, autore e genere.
-- **Verifica disponibilità** delle copie prima di prenotare.
-- **Prenotazione libri** con decremento automatico delle copie disponibili.
-- **Cancellazione prenotazioni** attive, con ripristino delle copie.
-- **Visualizzazione prenotazioni** dell'utente con dettagli su libro, data e stato.
-- **Autenticazione utenti** tramite insieme di utenti predefiniti.
+The SQLite database is **generated at startup** and pre-populated with initial records from `seed.py` in the `db` folder, ensuring data consistency across sessions. The application follows a **modular architecture** 🌐 designed to facilitate a future extension as a **web app**. Core services are tested with **pytest** ✅ and every change is automatically verified through the **CI/CD pipeline**, ensuring features remain correct.
 
 
 
-## Architettura e gestione dati
+## Features
 
-- **Persistenza dei dati** tramite database locale SQLite.
-- **Architettura modulare**: separazione tra logica applicativa e interfaccia.
-- **Test automatizzati** delle funzioni principali con pytest, per garantire correttezza e coerenza dei dati.
+- Catalog of approximately **20 pre-loaded titles** with title, author, and genre.
+- **Availability check** before reserving a book.
+- **Book reservation** with automatic decrement of available copies.
+- **Cancellation of active reservations**, restoring the copy count.
+- **Reservation overview** with details on book, date, and status.
+- **User authentication** via a set of predefined users.
 
 
 
-## Struttura del progetto
+## Architecture & Data Management
+
+- **Data persistence** via a local SQLite database.
+- **Modular architecture**: clear separation between business logic and interface.
+- **Automated tests** for core functions with pytest, ensuring correctness and data consistency.
+
+
+
+## Project Structure
 
 ```
 booktrack/
-├── db/              # Inizializzazione e connessione al database
-├── models/          # Definizione delle entità (Book, User, Reservation)
-├── services/        # Logica applicativa
-├── cli/             # Interfaccia a riga di comando
-├── tests/           # Test unitari sviluppati usando pytest
-└── main.py          # Entry point dell'applicazione
+├── db/              # Database initialization and connection
+├── models/          # Entity definitions (Book, User, Reservation)
+├── services/        # Business logic
+├── cli/             # Command-line interface
+├── tests/           # Unit tests built with pytest
+└── main.py          # Application entry point
 ```
 
 
 
-## Strumenti e framework
+## Tools & Frameworks
 
 - **Python 3.12**
-- **SQLite** per il database
-- **pytest** per i test
-- **pytest-mock** per il mocking delle connessioni e delle query
-- **GitHub Actions** per la pipeline CI/CD: lint e test automatici ad ogni PR, con **coverage minimo del 75%**
+- **SQLite** for the database
+- **pytest** for testing
+- **pytest-mock** for mocking connections and queries
+- **GitHub Actions** for the CI/CD pipeline: automated lint and tests on every PR, with a **minimum coverage of 75%**
 
 
 
-## Avvio rapido
+## Quick Start
 
 ```bash
-# Clona il repository
+# Clone the repository
 git clone https://github.com/<username>/booktrack.git
 cd booktrack
 
-# Crea e attiva l' ambiente virtuale
+# (Recommended) Create and activate a virtual environment
 python3 -m venv venv
-source venv/bin/activate  # Su Windows: venv\Scripts\activate
+source venv/bin/activate  # On Windows: venv\Scripts\activate
 
-# Installa le dipendenze
-pip install -r requirements_dev.txt
+# Install dependencies
+pip install -r requirements.txt
 
-# Esegui l'applicazione
+# Run the application
 python3 main.py
 ```
 
 
 
-## Nota sull'autenticazione
+## Language Notes
 
-L'implementazione di un sistema completo di registrazione con gestione sicura delle password richiederebbe componenti che esulano dagli obiettivi attuali del project work. Per questo motivo si è scelto di utilizzare un insieme di utenti predefiniti, garantendo comunque una corretta progettazione delle entità e delle relazioni tra di esse.
+The CLI interface is presented in **Italian**, as the application is intended for an Italian-speaking audience. Internal code, functions, and variable names are written in **English** following standard development conventions.
 
 
 
-## Credenziali di accesso
+## Note on Authentication
 
-L'applicazione include cinque utenti predefiniti:
+Implementing a full registration system with secure password management would require components that go beyond the current scope of this project. For this reason, a set of predefined users has been used, while still ensuring a proper design of the entities and their relationships.
 
-| Username        | Password    | Nome completo  |
+
+
+## Login Credentials
+
+The application includes five predefined users:
+
+| Username        | Password    | Full Name      |
 |-----------------|-------------|----------------|
 | `mario_rossi`   | `password1` | Mario Rossi    |
 | `laura_bianchi` | `password2` | Laura Bianchi  |
