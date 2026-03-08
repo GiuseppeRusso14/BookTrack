@@ -12,7 +12,7 @@ class Book:
 
     @property
     def is_available(self) -> bool:
-        return self.avalaible_copies>0
+        return self.available_copies>0
 
     def __str__(self) -> str:
         status=f"{self.available_copies}/{self.total_copies} disponibili"

@@ -39,7 +39,6 @@ def _create_tables(conn) -> None:
     """
     )
 
-
 def _seed_users(conn) -> None:
     count = conn.execute("SELECT COUNT(*) FROM users").fetchone()[0]
     if count > 0:
@@ -54,6 +53,8 @@ def _seed_users(conn) -> None:
     conn.executemany(
         "INSERT INTO users (username, password, full_name) VALUES (?, ?, ?)",
         users,
+    )
+
 def _seed_books(conn) -> None:
     count = conn.execute("SELECT COUNT(*) FROM books").fetchone()[0]
     if count > 0:
