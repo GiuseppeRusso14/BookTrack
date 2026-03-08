@@ -1,5 +1,7 @@
-import pytest
 import sqlite3
+
+import pytest
+
 import db.connection as db_connection
 
 

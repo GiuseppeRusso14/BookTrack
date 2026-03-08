@@ -1,7 +1,8 @@
+from models.user import User
+
 from .auth_cli import login_screen
 from .catalog_cli import browse_catalog, search_books_menu
-from .reservation_cli import reserve_book_menu, my_reservations_menu
-from models.user import User
+from .reservation_cli import my_reservations_menu, reserve_book_menu
 
 
 def _main_menu(user: User) -> bool:

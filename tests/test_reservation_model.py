@@ -1,22 +1,31 @@
 import pytest
+
 from models.reservation import Reservation
 
 
 @pytest.fixture
 def active_reservation():
     return Reservation(
-        id=1, user_id=1, book_id=10,
-        reserved_at="2025-01-01", status="active",
-        book_title="Python", book_author="Guido"
+        id=1,
+        user_id=1,
+        book_id=10,
+        reserved_at="2025-01-01",
+        status="active",
+        book_title="Python",
+        book_author="Guido",
     )
 
 
 @pytest.fixture
 def cancelled_reservation():
     return Reservation(
-        id=2, user_id=1, book_id=10,
-        reserved_at="2025-01-01", status="cancelled",
-        book_title="Python", book_author="Guido"
+        id=2,
+        user_id=1,
+        book_id=10,
+        reserved_at="2025-01-01",
+        status="cancelled",
+        book_title="Python",
+        book_author="Guido",
     )
 
 

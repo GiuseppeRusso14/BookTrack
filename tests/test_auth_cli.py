@@ -1,10 +1,13 @@
 import pytest
+
 from cli.auth_cli import login_screen
 
 
 @pytest.fixture(autouse=True)
 def mock_usernames(mocker):
-    mocker.patch("cli.auth_cli.auth_service.get_all_usernames", return_value=["mario", "luigi"])
+    mocker.patch(
+        "cli.auth_cli.auth_service.get_all_usernames", return_value=["mario", "luigi"]
+    )
 
 
 def test_user_types_exit(mocker, capsys):
@@ -42,7 +45,9 @@ def test_wrong_credentials_twice_then_login(mocker, capsys):
     fake_user = mocker.MagicMock()
     fake_user.full_name = "Luigi Verdi"
 
-    mocker.patch("cli.auth_cli.auth_service.authenticate", side_effect=[None, None, fake_user])
+    mocker.patch(
+        "cli.auth_cli.auth_service.authenticate", side_effect=[None, None, fake_user]
+    )
     mocker.patch("builtins.input", side_effect=["x", "x", "x", "x", "luigi", "giusta"])
 
     result = login_screen()

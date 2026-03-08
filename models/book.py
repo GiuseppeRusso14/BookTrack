@@ -1,5 +1,6 @@
 from dataclasses import dataclass
 
+
 @dataclass
 class Book:
     id: int
@@ -12,8 +13,8 @@ class Book:
 
     @property
     def is_available(self) -> bool:
-        return self.available_copies>0
+        return self.available_copies > 0
 
     def __str__(self) -> str:
-        status=f"{self.available_copies}/{self.total_copies} disponibili"
+        status = f"{self.available_copies}/{self.total_copies} disponibili"
         return f"[{self.id}] {self.title} - {self.author} ({self.year}) | {self.genre} | {status}"

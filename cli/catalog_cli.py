@@ -1,5 +1,6 @@
 from services import book_service
 
+
 def browse_catalog() -> None:
     books = book_service.get_all_books()
     print("\n" + "=" * 70)
@@ -11,6 +12,7 @@ def browse_catalog() -> None:
     for book in books:
         print(f"  {book}")
     print(f"\n  Totale: {len(books)} titoli")
+
 
 def search_books_menu() -> None:
     query = input("\nCerca per titolo, autore o genere: ").strip()

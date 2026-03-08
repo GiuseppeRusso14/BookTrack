@@ -1,4 +1,5 @@
 import pytest
+
 from cli.app import _main_menu, run
 
 
