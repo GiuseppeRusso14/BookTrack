@@ -1,5 +1,7 @@
 import pytest
+
 import db.connection as db_conn
+
 
 @pytest.fixture(autouse=True)
 def reset_db_singleton():

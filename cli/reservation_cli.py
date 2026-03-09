@@ -9,8 +9,8 @@ def reserve_book_menu(user: User) -> None:
         return
 
     print("\n  LIBRI DISPONIBILI:")
-    for book in books:
-        print(f"  {book}")
+    for b in books:
+        print(f"  {b}")
 
     try:
         book_id = int(
@@ -34,7 +34,7 @@ def reserve_book_menu(user: User) -> None:
         print("Prenotazione annullata.")
         return
 
-    success, message = reservation_service.reserve_book(user.id, book_id)
+    _, message = reservation_service.reserve_book(user.id, book_id)
     print(f"\n  {message}")
 
 
@@ -64,5 +64,5 @@ def my_reservations_menu(user: User) -> None:
     if cancel_id == 0:
         return
 
-    success, message = reservation_service.cancel_reservation(cancel_id, user.id)
+    _, message = reservation_service.cancel_reservation(cancel_id, user.id)
     print(f"\n  {message}")

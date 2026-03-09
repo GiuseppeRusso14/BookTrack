@@ -1,6 +1,8 @@
 from typing import List, Tuple
+
 from db.connection import get_connection
 from models.reservation import Reservation
+
 
 def reserve_book(user_id: int, book_id: int) -> Tuple[bool, str]:
     with get_connection() as conn:
@@ -54,6 +56,7 @@ def cancel_reservation(reservation_id: int, user_id: int) -> Tuple[bool, str]:
         conn.commit()
 
     return True, "Prenotazione cancellata. La copia è di nuovo disponibile."
+
 
 def get_user_reservations(user_id: int) -> List[Reservation]:
     with get_connection() as conn:

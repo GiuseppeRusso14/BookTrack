@@ -1,5 +1,6 @@
 from db.connection import get_connection
 
+
 def initialize_database() -> None:
     conn = get_connection()
     _create_tables(conn)
@@ -7,9 +8,9 @@ def initialize_database() -> None:
     _seed_books(conn)
     conn.commit()
 
+
 def _create_tables(conn) -> None:
-    conn.executescript(
-        """
+    conn.executescript("""
         CREATE TABLE IF NOT EXISTS users (
             id        INTEGER PRIMARY KEY AUTOINCREMENT,
             username  TEXT    NOT NULL UNIQUE,
@@ -36,8 +37,8 @@ def _create_tables(conn) -> None:
             FOREIGN KEY (user_id) REFERENCES users(id),
             FOREIGN KEY (book_id) REFERENCES books(id)
         );
-    """
-    )
+    """)
+
 
 def _seed_users(conn) -> None:
     count = conn.execute("SELECT COUNT(*) FROM users").fetchone()[0]
@@ -55,6 +56,7 @@ def _seed_users(conn) -> None:
         users,
     )
 
+
 def _seed_books(conn) -> None:
     count = conn.execute("SELECT COUNT(*) FROM books").fetchone()[0]
     if count > 0:
@@ -65,7 +67,14 @@ def _seed_books(conn) -> None:
         ("Il piccolo principe", "Antoine de Saint-Exupéry", "Narrativa", 1943, 5, 5),
         ("Orgoglio e pregiudizio", "Jane Austen", "Romanzo", 1813, 3, 3),
         ("Il Signore degli Anelli", "J.R.R. Tolkien", "Fantasy", 1954, 4, 4),
-        ("Cent'anni di solitudine", "Gabriel García Márquez", "Realismo magico", 1967, 3, 3),
+        (
+            "Cent'anni di solitudine",
+            "Gabriel García Márquez",
+            "Realismo magico",
+            1967,
+            3,
+            3,
+        ),
         ("Il processo", "Franz Kafka", "Narrativa", 1925, 2, 2),
         ("Don Chisciotte", "Miguel de Cervantes", "Romanzo", 1605, 2, 2),
         ("La divina commedia", "Dante Alighieri", "Poesia epica", 1320, 4, 4),

@@ -1,7 +1,7 @@
 import pytest
-from models.user import User
-from cli.reservation_cli import reserve_book_menu, my_reservations_menu
 
+from cli.reservation_cli import my_reservations_menu, reserve_book_menu
+from models.user import User
 
 FAKE_USER = User(id=1, username="giuseppe", password="hash", full_name="Giuseppe Russo")
 
@@ -24,8 +24,11 @@ def mock_reservation(mocker):
 
 # --- reserve_book_menu ---
 
+
 def test_no_books_available(mocker, capsys):
-    mocker.patch("cli.reservation_cli.book_service.get_available_books", return_value=[])
+    mocker.patch(
+        "cli.reservation_cli.book_service.get_available_books", return_value=[]
+    )
 
     reserve_book_menu(FAKE_USER)
 
@@ -33,7 +36,9 @@ def test_no_books_available(mocker, capsys):
 
 
 def test_invalid_input(mocker, capsys, mock_book):
-    mocker.patch("cli.reservation_cli.book_service.get_available_books", return_value=[mock_book])
+    mocker.patch(
+        "cli.reservation_cli.book_service.get_available_books", return_value=[mock_book]
+    )
     mocker.patch("builtins.input", return_value="abc")
 
     reserve_book_menu(FAKE_USER)
@@ -42,7 +47,9 @@ def test_invalid_input(mocker, capsys, mock_book):
 
 
 def test_user_cancels_with_zero(mocker, mock_book):
-    mocker.patch("cli.reservation_cli.book_service.get_available_books", return_value=[mock_book])
+    mocker.patch(
+        "cli.reservation_cli.book_service.get_available_books", return_value=[mock_book]
+    )
     mocker.patch("builtins.input", return_value="0")
     mock_reserve = mocker.patch("cli.reservation_cli.reservation_service.reserve_book")
 
@@ -52,7 +59,9 @@ def test_user_cancels_with_zero(mocker, mock_book):
 
 
 def test_book_not_found(mocker, capsys, mock_book):
-    mocker.patch("cli.reservation_cli.book_service.get_available_books", return_value=[mock_book])
+    mocker.patch(
+        "cli.reservation_cli.book_service.get_available_books", return_value=[mock_book]
+    )
     mocker.patch("cli.reservation_cli.book_service.get_book_by_id", return_value=None)
     mocker.patch("builtins.input", return_value="99")
 
@@ -63,8 +72,12 @@ def test_book_not_found(mocker, capsys, mock_book):
 
 def test_book_not_available(mocker, capsys, mock_book):
     mock_book.is_available = False
-    mocker.patch("cli.reservation_cli.book_service.get_available_books", return_value=[mock_book])
-    mocker.patch("cli.reservation_cli.book_service.get_book_by_id", return_value=mock_book)
+    mocker.patch(
+        "cli.reservation_cli.book_service.get_available_books", return_value=[mock_book]
+    )
+    mocker.patch(
+        "cli.reservation_cli.book_service.get_book_by_id", return_value=mock_book
+    )
     mocker.patch("builtins.input", return_value="1")
 
     reserve_book_menu(FAKE_USER)
@@ -73,8 +86,12 @@ def test_book_not_available(mocker, capsys, mock_book):
 
 
 def test_user_declines_confirmation(mocker, capsys, mock_book):
-    mocker.patch("cli.reservation_cli.book_service.get_available_books", return_value=[mock_book])
-    mocker.patch("cli.reservation_cli.book_service.get_book_by_id", return_value=mock_book)
+    mocker.patch(
+        "cli.reservation_cli.book_service.get_available_books", return_value=[mock_book]
+    )
+    mocker.patch(
+        "cli.reservation_cli.book_service.get_book_by_id", return_value=mock_book
+    )
     mocker.patch("builtins.input", side_effect=["1", "n"])
     mock_reserve = mocker.patch("cli.reservation_cli.reservation_service.reserve_book")
 
@@ -85,9 +102,16 @@ def test_user_declines_confirmation(mocker, capsys, mock_book):
 
 
 def test_reservation_success(mocker, capsys, mock_book):
-    mocker.patch("cli.reservation_cli.book_service.get_available_books", return_value=[mock_book])
-    mocker.patch("cli.reservation_cli.book_service.get_book_by_id", return_value=mock_book)
-    mocker.patch("cli.reservation_cli.reservation_service.reserve_book", return_value=(True, "Prenotazione confermata"))
+    mocker.patch(
+        "cli.reservation_cli.book_service.get_available_books", return_value=[mock_book]
+    )
+    mocker.patch(
+        "cli.reservation_cli.book_service.get_book_by_id", return_value=mock_book
+    )
+    mocker.patch(
+        "cli.reservation_cli.reservation_service.reserve_book",
+        return_value=(True, "Prenotazione confermata"),
+    )
     mocker.patch("builtins.input", side_effect=["1", "s"])
 
     reserve_book_menu(FAKE_USER)
@@ -97,8 +121,11 @@ def test_reservation_success(mocker, capsys, mock_book):
 
 # --- my_reservations_menu ---
 
+
 def test_no_reservations(mocker, capsys):
-    mocker.patch("cli.reservation_cli.reservation_service.get_user_reservations", return_value=[])
+    mocker.patch(
+        "cli.reservation_cli.reservation_service.get_user_reservations", return_value=[]
+    )
 
     my_reservations_menu(FAKE_USER)
 
@@ -107,7 +134,10 @@ def test_no_reservations(mocker, capsys):
 
 def test_all_reservations_inactive(mocker, mock_reservation):
     mock_reservation.is_active = False
-    mocker.patch("cli.reservation_cli.reservation_service.get_user_reservations", return_value=[mock_reservation])
+    mocker.patch(
+        "cli.reservation_cli.reservation_service.get_user_reservations",
+        return_value=[mock_reservation],
+    )
     mock_input = mocker.patch("builtins.input")
 
     my_reservations_menu(FAKE_USER)
@@ -116,9 +146,14 @@ def test_all_reservations_inactive(mocker, mock_reservation):
 
 
 def test_user_enters_zero_to_go_back(mocker, mock_reservation):
-    mocker.patch("cli.reservation_cli.reservation_service.get_user_reservations", return_value=[mock_reservation])
+    mocker.patch(
+        "cli.reservation_cli.reservation_service.get_user_reservations",
+        return_value=[mock_reservation],
+    )
     mocker.patch("builtins.input", return_value="0")
-    mock_cancel = mocker.patch("cli.reservation_cli.reservation_service.cancel_reservation")
+    mock_cancel = mocker.patch(
+        "cli.reservation_cli.reservation_service.cancel_reservation"
+    )
 
     my_reservations_menu(FAKE_USER)
 
@@ -126,9 +161,14 @@ def test_user_enters_zero_to_go_back(mocker, mock_reservation):
 
 
 def test_invalid_cancel_input(mocker, mock_reservation):
-    mocker.patch("cli.reservation_cli.reservation_service.get_user_reservations", return_value=[mock_reservation])
+    mocker.patch(
+        "cli.reservation_cli.reservation_service.get_user_reservations",
+        return_value=[mock_reservation],
+    )
     mocker.patch("builtins.input", return_value="abc")
-    mock_cancel = mocker.patch("cli.reservation_cli.reservation_service.cancel_reservation")
+    mock_cancel = mocker.patch(
+        "cli.reservation_cli.reservation_service.cancel_reservation"
+    )
 
     my_reservations_menu(FAKE_USER)
 
@@ -136,8 +176,14 @@ def test_invalid_cancel_input(mocker, mock_reservation):
 
 
 def test_cancellation_success(mocker, capsys, mock_reservation):
-    mocker.patch("cli.reservation_cli.reservation_service.get_user_reservations", return_value=[mock_reservation])
-    mocker.patch("cli.reservation_cli.reservation_service.cancel_reservation", return_value=(True, "Prenotazione cancellata"))
+    mocker.patch(
+        "cli.reservation_cli.reservation_service.get_user_reservations",
+        return_value=[mock_reservation],
+    )
+    mocker.patch(
+        "cli.reservation_cli.reservation_service.cancel_reservation",
+        return_value=(True, "Prenotazione cancellata"),
+    )
     mocker.patch("builtins.input", return_value="1")
 
     my_reservations_menu(FAKE_USER)
